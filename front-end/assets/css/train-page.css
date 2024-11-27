@@ -1,0 +1,691 @@
+/* CSS chung >> */
+/* Nhơ  lọc pointer, font chữ */
+* {
+    padding: 0;
+    margin: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html {
+
+}
+
+hr {
+    margin: 0px auto;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.w-h-44 {
+    width: 44px;
+    height: 44px;
+}
+
+a:hover {
+    color: #f0564a;
+}
+
+.list-style {
+    list-style: none;
+}
+
+.border-box {
+    border: 0.5px #e0e0e0 solid;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.img-b {
+    margin-right: 4px;
+    width: 40px;
+    height: auto;
+}
+
+.img-c {
+ width: 100px;
+ height: 100px;
+}
+
+.status-bar-form {
+    text-align: center;
+    width: 100%;
+    border: 0.5px #e0e0e0 solid;
+    border-radius: 140px;
+    background-color: #ddd;
+    color: #fff;
+    height: 14px;
+    font-size: 12px;
+    margin: 3px;
+}
+
+.search-form {
+    height: 44px;
+    border-radius: 50px;
+    border: 1px solid #e0e0e0;
+    background-color:#f9f9f9;
+    color: #757575;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    outline: unset;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.middle-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.float-right {
+    float: right;
+}
+
+.flaot-left {
+    float: left;
+}
+
+.item-n {
+    text-align: center;
+    margin: 0 22px 40px;
+    box-sizing: border-box;
+    /* display inline block để các item-n cùng hàng với nhau */
+}
+
+.mgt-1 {
+    margin-top: 20px;
+}
+.mgb-1 {
+    margin-bottom: 30px;
+}
+
+.mg-item {
+    margin-top: 10px;
+}
+
+.lv1-g {
+    color: #f0564a;
+}
+.lv2-f {
+    color: #041905;;
+}
+.lv3-e {
+    /* chưa có */
+}
+.lv4-d {
+    color: #0a86db;
+}
+.lv5-c {
+    color: #009688;;
+}
+.lv6-b {
+    color: #9c27b0;;
+}
+.lv7-a {
+    color: #FF1493; 
+    /* Tạm ổn */
+}
+.lv8-s {
+    -webkit-background-clip: text;
+    color: rgba(255, 255, 255, 0.15);
+    background-color: linear-gradient(90deg, #ff0808 0%, rgb(0, 0, 0) 100%);
+    background-clip: text; 
+}
+
+.lv9-ss {
+    -webkit-background-clip: text;
+    color: rgba(255, 255, 255, 0.15);
+    background-color: linear-gradient(90deg, #9C27B0 0%, #000000 100%);
+    background-clip: text; 
+}
+.lv10-sss {
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text;
+    background: linear-gradient(90deg, #ffe600 , #fa32f0 );
+    background-clip: text; 
+}
+.lv11-ttl {
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+    background-clip: text; 
+}
+
+.lv12-tth {
+    /* Chưa có */
+}
+/* CSS chung << */
+.test-box {
+    width: 100%;
+    height: 100px;
+    background-color: #1694e9;
+    color: #fff;
+    font-size: 25px;
+}
+/* Js CSS */
+.js-show {
+    display: block !important;
+}
+/* Js CSS end */
+
+.header {
+    position: relative;
+    display: flex;
+    padding: 10px 0;
+    height: 44px;
+}
+
+.profile {
+   /* display: inline-block; */
+   width: 254px;
+   box-sizing: border-box;
+   padding: 0 20px 0 10px;
+}
+
+.navigation div {
+    display: inline-block;
+}
+
+.s-profile img, .profile > img {
+    border-radius: 150px;
+}
+
+.right-top {
+    position: absolute;
+    right: 0;
+    display: flex;
+    padding-right: 10px;
+}
+
+.header p::first-letter {
+    color: #f0564a;
+    /* Đổi màu chứ C trong Cmanga */
+}
+
+.header p {
+    font-size: 22px;
+    line-height: 44px;
+}
+
+#top-search input {
+        margin-left: 30px;
+        padding-left: 20px;
+}
+#top-search {
+    width: 420px;
+    margin-left: 70px;
+    position: relative;
+    /* Tạo position cho search icon */
+}
+
+#top-search-responsive {
+    position: relative;
+}
+
+.header .search-icon {
+    font-size: 19px;
+    color: #f0564a;
+}
+
+.header .search-icon:first-child {
+    position: absolute;
+    right: 1px;
+    top: 0;
+    padding-top: 13px;
+    /* search-icon là con của #top-search */
+}
+
+#top-search-responsive .search-icon {
+    position: absolute;
+    z-index: 2;
+    right: 15px;
+}
+
+#open-search-responsive:checked ~ #top-search-responsive {
+    display: flex !important;
+    width: 100% !important;
+}
+
+#open-avt-menu:checked ~ .menu-avt {
+    display: block;
+}
+
+.s-profile {
+    display: flex;
+}
+
+.s-profile img {
+    margin-right: 10px;
+}
+
+.token {
+    margin-top: 5px;
+}
+
+.menu-avt {
+    position: absolute;
+    right: 0;
+    top: 54px;
+    z-index: 3;
+    background: #fff;
+    line-height: 40px;
+    margin-top: 0px;
+    width: 251px;
+    box-sizing: border-box;
+    padding: 15px;
+    display: none;
+}
+
+.navigation { 
+    position: relative;
+    background-color: #f0564a;
+    width: 100%;
+    box-sizing: border-box;
+    align-content: center;
+}
+
+.navigation > div {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    /* Thẻ div chứa các thẻ ul, gióng hàng ngang cho khối ul */
+}
+
+.navigation ul {
+    display: flex;
+    /* gióng hàng ngang các thẻ li của các thẻ ul, thẻ ul thuộc div */
+}
+
+.navigation ul li { 
+    padding: 0 10px;
+    color: #fff;
+    line-height: 52px;
+}
+
+.navigation ul > li:hover {
+    background-color: #de847d;
+}
+/* CSS nav responsive */
+.navigation .bar-responsive, .close-navigation-responsive-btn {
+    position: absolute;
+    right: 15px;
+    font-size: 30px;
+    color: #fff;
+    /* CSS cho icon menu và dấu x */
+}
+
+.navigation .close-navigation-responsive-btn {
+    display: none !important;
+}
+
+/* Phần ấn để hiển thị nút close cho navigation viết ở trong @media max-width: 1099px */
+
+#navigation-responsive:checked ~ .bar-responsive {
+    display: none !important;
+    /* Ẩn chính nó sau khi kích hoatj thuộc tính checked */
+} 
+
+#navigation-responsive:checked ~ ul li.item-h {
+    display: block !important;
+    animation: fadeIn .5s;
+}
+/* CSS nav responsive end */
+
+.category-menu-container {
+    position: absolute;
+    top: 116px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 2;
+    display: none;
+}
+
+.category-menu {
+    padding: 20px 0;
+}
+
+.category-menu li {
+    width: 140px;
+    height: 40px;
+    line-height: 20px;
+    font-size: 13px;
+    cursor: pointer; 
+    align-content: center;
+    padding: 5px 0;
+}
+
+
+#background-content {
+    background-color:#e0e0e0;
+    padding: 20px 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: #fff;
+    padding: 25px 25px 90px;
+    /* min-height: 1600px;  */
+    height: auto;
+    box-sizing: border-box;
+     /* Phải set height cố định vì khối này không thích ứng theo content bên trong */
+}
+
+.menu-container .row:first-child {
+    justify-content: space-between;
+}
+
+.top-content-right {
+    margin-right: 17px;
+}
+
+.equipment-profile {
+    width: 100%;
+}
+
+#avatar {
+    max-width: 224px;
+    margin: 0 auto;
+}
+
+#avatar img {
+    border-radius: 150px;
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* CSS equipment */
+.equipment {
+ display: flex;
+ justify-content: center;
+ margin: 10px auto 10px auto;
+/* Có hai div thuộc class equipment */
+}
+.equipment div {
+    width: 50px;
+    height: 50px;
+    border: 2px #f0564a solid;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #000;
+    position: relative;
+    margin: 0 3px;
+    /* CSS khung trang bị, và đặt position cho img:last-child */
+}
+
+.equipment div img:first-child {
+    height: 100%;
+    width: 100%;
+    /* Hình ảnh thuộc lớp giả fisrt-chill là hình ảnh trang bị, css cho hình ảnh nằm trong khung */
+}
+
+.equipment div img:last-child {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 15px;
+    height: 15px;
+    /* Ảnh cuối là ảnh hệ trang bị, vị trí ở góc phải ô trang bị nằm trên ảnh trang bị*/
+}
+/* CSS equipment */
+
+
+.profile .name {
+    margin: 10px 0px;
+}
+
+.comfy-menu {
+    margin-top: 30px;
+    line-height: 40px;
+}
+
+.vip-tag, .student-tag {
+    width: 224px;
+    height: 50px;
+    display: flex;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
+#crital-open-equipment > div {
+    width: 100%;
+    padding: 7px;
+    box-sizing: border-box;
+    display: flex;
+}
+#crital-open-equipment div:last-child, .vip-tag div:last-child {
+    /* flex: 0 0 76.5%; */
+    /* .status-bar-form chiếm 100% div chứa nó, CSS tăng kích thước của div chứa nó, vì div chứa status-bar-form không phải con trực tiếp của flex cha */   
+    width: 100%;
+}
+
+.student-tag div {
+    margin: auto 0;
+}
+
+.student-tag .quantity {
+    color: red;
+}
+
+.top-content {
+    display: inline-block;
+}
+
+#set-equipment, #attendance, .c-look-in4 {
+    padding: 7px;
+}
+
+#set-equipment, .c-look-in4 {
+    border: 1.5px #f0564a solid;
+    border-radius: 3px;
+    color: #f0564a;
+    margin-right: 5px;
+}
+
+#attendance {
+    border-radius: 3px;
+    background-color: #0a86db;
+    color: #fff;
+    line-height: 22.25px;
+}
+
+
+.status-bar {
+    display: flex;
+    justify-content: center;
+    transform: translateX(10px);
+}
+
+.exp-bar-frame, .exp-bar {
+    border-radius: 100px 140px 140px 100px;
+}
+
+.exp-bar-frame {
+    border: 0.5px #e0e0e0 solid;
+    margin: 0 10px;
+    line-height: 25px;
+    height: 25px;
+    color: #fff;
+    flex: 45% 0 0 ;/* thanh exp 145% so với flex item chung vùng chứa*/
+}
+
+.exp-bar {
+    background: #1ac567;
+    width: 50%;
+}
+
+.my-rank, .next-rank {
+    line-height: 30px;
+}
+
+.guide a {
+    color: #1694e9;
+    text-transform: uppercase;
+}
+
+.guide i {
+    color: #1694e9;
+    margin-right: 10px;
+}
+
+#function, #active {
+    justify-content:space-between;
+}
+
+#lastItem {
+    margin-right: auto;
+}
+
+@media screen and (max-width: 1239px) and (min-width: 1099px) {
+     #active {
+        margin-top: 10px;
+     }
+     #lastItem {
+        margin-right: 290px;
+     }
+} 
+/* Tạm dùng lastItem như trên do chưa tìm được các giúp lastItem tự tương thích */
+
+#active  {
+    margin-bottom: 50px;
+    /*Tạo khoảng trống cuối trang  */
+    /* transform: translateY(-175px); */
+    /* Tạm dùng transform do tìm được nguyên nhân dẫn đến khoảng trống giữa #function và #active */
+}
+
+@media screen and (max-width: 1099px)  {
+    #navigation-responsive:checked ~ .close-navigation-responsive-btn {
+        display: block !important;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .show-cm {
+        display: block;
+    }
+    .header {
+        padding: 10px;
+        height: auto;
+    }
+    .logo {
+        display: inline-block;
+    }
+    .middle-box {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .s-profile img {
+        margin-right: 0;
+    }
+
+    .header .other {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+    }
+    .header .badge {
+        background-color: #f0564a ;
+        margin-right: 10px;
+        border-radius: 150px;
+        
+        box-sizing: border-box;
+    }
+    .header .badge i {
+        font-size: 17px;
+        color: #fff;
+        padding: 14px;
+    }
+    .header ul>.badge:last-child i {
+        padding: 14px 16.2px;
+        display: block;
+    }
+/* nav responsive */
+    .navigation .middle-box {
+        flex-direction: column;
+        justify-content: center; 
+        position: relative;
+        z-index: 2;
+    }
+
+    .navigation ul {
+        flex-direction: column;
+        background: #f0564a;
+    }
+
+    .category-menu-container {
+        padding-left: 20px;
+        font-size: 22px;
+    }
+/* profile responsive */
+    #look-infor:checked ~ .profile {
+        display: block !important;
+    }
+
+    .profile {
+        width: 100%;
+    }
+    #crital-open-equipment div div, .vip-tag div:last-child {
+        flex: 100% 10% 95%;
+        /* .status-bar-form chiếm 100% div chứa nó, CSS tăng kích thước của div chứa nó, vì div chứa status-bar-form không phải con trực tiếp của flex cha */   
+    }
+    #background-content {
+
+    }
+
+    .student-tag {
+        margin-bottom: 20px;
+    }
+}
+@keyframes fadeIn { 
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 52px;
+        opacity: 1;
+    }
+}
+@media screen and (max-width: 1239px)  {
+    .top-content-right{
+        margin-right: 17px !important;
+    };
+}
+@media (min-width: 740px) and (max-width: 1023px) {
+    #lastItem {
+        margin-right: 37.5%;
+    }
+}
+@media (max-width: 739px) {
+    .item-n {
+        margin: 0 0 40px;
+    }
+}

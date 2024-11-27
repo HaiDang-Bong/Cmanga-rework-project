@@ -1,0 +1,12 @@
+1-G: #ff0808; 
+2-F: #041905;
+3-E: Chưa có;
+4-D: #0a86db;
+5-C: #009688;
+6-B: #9c27b0;
+7-A: #FF1493 / Tạm;
+8-S: linear-gradient(90deg, #ff0808 0%, rgb(0, 0, 0) 100%);
+9-SS: linear-gradient(90deg, #9C27B0 0%, #000000 100%);
+10-SSS: Chưa có;
+11-Truyền Thuyết: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+12-Thần Thoại: Chưa Có;

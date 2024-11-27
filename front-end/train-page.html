@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8">
+        <title>Trang chủ Tu Luyện</title>
+        <link rel="stylesheet" href="./assets/css/c-layout.css"><!-- Thư viện Cmanga Layout-->
+        <link rel="stylesheet" href="./assets/css/train-page.css">
+        <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+        <link rel="stylesheet" href="./assets/fonts/font-awesome/fontawesome-free-6.6.0-web/css/all.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <style>
+           
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <!-- Header -->
+            <!-- thực hành đặt category trong nav, dùng label để làm menu-avt-->
+            <div class="middle-box header row"><!--sài flex pssition, thuần position-->        
+                    <p class="cursor-pointer cm-0"><a id="home" href="">CMANGA</a></p><!--Có lớp giả để chọn chữ đầu-->
+                    <a class="c-0 show-cm logo" href="#">
+                        <img src="./assets/image/icon.png" width="40px" height="40px" alt="">
+                    </a>
+                    <div class="col cm-0" id="top-search">
+                        <input class="search-form"  placeholder="Bạn muốn tìm truyện gì" type="text">
+                        <div><i class="cursor-pointer ti-search search-icon "></i></div>
+                    </div>
+                    <div class="right-top c-o-9">
+                        <ul class="other c-0 show-cm">
+                            <label for="open-search-responsive">
+                                <li class="badge cursor-pointer list-style w-h-44"><i class="fa-solid fa-magnifying-glass"></i></li>
+                            </label>
+                            <li class="badge cursor-pointer list-style w-h-44"></li>
+                            <li class="badge cursor-pointer list-style w-h-44"><i class="fa-solid fa-bookmark"></i></li>
+                        </ul>
+                        <label class="lb-avt" for="open-avt-menu">
+                            <div class="s-profile cursor-pointer">
+                                <img class="cursor-pointer w-h-44 js-hide-menu-avt" src="./assets/image/cú-avt.jpg" alt="avt">
+                                <div class="cm-0">
+                                    <div class="">Cú</div>
+                                    <div class="token">1000</div>
+                                </div>
+                            </div>
+                        </label>
+                        <input class="c-0" id="open-avt-menu" type="checkbox">
+                        <div class="menu-avt  border-box js-hide-menu-avt">
+                            <ul>
+                                <li class="list-style"><a class=" lv1-g cursor-pointer" href="">Tu luyện</a></li>
+                                <li class="list-style"><a class="cursor-pointer" href="">Danh sách theo dõi</a></li>
+                                <li class="list-style"><a class="cursor-pointer" href="">Lịch sử đọc truyện</a></li>
+                                <li class="list-style"><a class="cursor-pointer" href="">Cài đặt thông tin</a></li>
+                                <li class="list-style"><a class="cursor-pointer" href="">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input class="c-0" id="open-search-responsive" type="checkbox">
+                    <div class="cm-0 mg-item c-0" id="top-search-responsive">
+                        <input  class="search-form" placeholder="Bạn muốn tìm truyện gì" type="text">
+                        <div><i class="cursor-pointer ti-search search-icon c-0 "></i></div>
+                    </div>
+            </div>
+            <!-- Header end -->
+
+            <!-- Navigation -->
+            <div  class="navigation">
+                <div class="middle-box" >
+                    <input class="c-0" type="checkbox" name="" id="navigation-responsive">
+                    <ul class="list-style">
+                        <li class="item-h cm-0 cursor-pointer js-hide-category">Thể loại 
+                            <div>
+                                <i class="fa-solid fa-caret-down "></i>
+                            </div>
+                        </li>
+                        <li class="item-h cm-0 cursor-pointer">VIP Truyện Siêu Hay</li> 
+                        <li class="cursor-pointer">CGame</li>
+                        <li class="cursor-pointer">Raw truyện</li>
+                    </ul>
+                        
+                    <ul class="list-style">
+                        <li class="item-h cm-0 cursor-pointer train">Tu luyện</li>
+                        <li class="item-h cm-0 cursor-pointer">Chợ</li>
+                        <li class="item-h cm-0 cursor-pointer">Đấu trường</li>
+                    </ul>
+                    <label class="cursor-pointer close-navigation-responsive-btn c-0" for="navigation-responsive">
+                        <div>
+                            <i class="fa-solid fa-xmark "></i>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer bar-responsive c-0 show-cm" for="navigation-responsive">
+                        <div>
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                    </label>
+                       <!-- Trong cùng một thời điểm chỉ tổn tại icon bar hoặc btn close, 
+                        ân sẽ trỏ vô input, input được checked kích hoạt thuốc tính, 
+                        ấn vô lại hủy checked, hủy thuộc tính được kích hoạt -->
+                </div>
+                
+            </div>
+            <div class="category-menu-container  category-show js-hide-category2 ">
+                <ul class="row category-menu middle-box list-style">
+                    <li class="cm-6">
+                        <a href="">Action</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Adult</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Adventure</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Anime</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Chuyển Sinh</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Comedy</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Comic</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Coking</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Cổ Đại</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Doujinshi</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Drama</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Đam Mỹ</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Ecchi</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Fantasy</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Gender Bender</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Harem</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Historical</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Horror</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">josei</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Live Action</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Manga</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Manhua</a>
+                    </li>
+                    <li class="cm-6"> 
+                        <a href="">Manhwa</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Martialarts</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Marture</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Mecha</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Mystery</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Ngôn Tình</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Oneshot</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Psychological</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Romance</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">School Life</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Sci-fi</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Seinen</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Shoujo</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Shoujo Ai</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Shoune Ai</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Shounen Ai</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Slice of Life</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Smut</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Yaoi</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Soft Yuri</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Sports</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Supernatural</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Tạp chí truyện tranh</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Thiếu Nhi</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Tragady</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Trính Thám</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">truyện scan</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">truyện Màu</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Việt Nam</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Webtoon</a>
+                    </li>
+                    <li class="cm-6">
+                        <a class="text-bold lv1-g" href="">Xuyên Không</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">16+</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Truyện Tranh</a>
+                    </li>
+                    <li class="cm-6">
+                        <a href="">Truyện siêu hay</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Navigation end-->
+
+            <!-- Content -->
+            <div  id="background-content">
+                
+                <!--Profile  -->
+                <div class="grid wide content"><!--Phần này chưa tương thích với nội dung, thay tạm bằng min-height: 1600px-->
+                    
+                    <label for="look-infor">
+                        <div class="c-0 cm-12 mgb-1 show-cm text-capitalize text-center c-look-in4">
+                            <p>Xem thông tin</p>
+                        </div>
+                    </label>
+                    
+                    <!-- Equipment  profile -->
+                    <input class="c-0" id="look-infor" type="checkbox">
+                    <div class="col c-3 cm-12 cm-0 profile">
+                            <div id="avatar"> 
+                                <img class="cursor-pointer" width="100%" src="./assets/image/cú-avt.jpg" alt="ảnh đại diện">
+                            </div>
+                            <div class="equipment">
+                                <div class="cursor-pointer">
+                                    <img src="./assets/image/knife_6.png" alt="">
+                                    <img src="./assets/image/fire.png" alt="">
+                                </div>
+    
+                                <div class="cursor-pointer">
+                                    <img src="./assets/image/helmet_6.png" alt="">
+                                    <img src="./assets/image/earth.png" alt="">
+                                </div>
+    
+                                <div class="cursor-pointer">
+                                    <img src="./assets/image/leather_6.png" alt="">
+                                    <img src="./assets/image/earth.png" alt="">
+                                </div>
+                            </div>
+                            <div class="equipment">
+                                <div class="cursor-pointer">
+                                    <img src="./assets/image/starter_gloves_6.png" alt="">
+                                    <img src="./assets/image/light.png" alt="">
+                                </div>
+    
+                                <div class="cursor-pointer">
+                                    <img src="./assets/image/starter_boots_6.png" alt="">
+                                    <img src="./assets/image/earth.png" alt="">
+                                </div>
+                            </div> 
+                            <div class="name text-bold text-center cursor-pointer">Cú</div>                      
+                            <div  class="lv11-ttl text-bold text-center">Truyền Thuyết</div>
+                            <!-- Equipment  profile end-->
+
+                            <!-- Menu phụ -->
+                        <div class="text-center border-box comfy-menu cm-12">
+                            <div class="text-bold cursor-pointer"><a href="">Tu luyện</a></div>
+                            <div class="cursor-pointer"><a href="">Cài đặt thông tin</a></div>
+                            <div class="cursor-pointer"><a href="">Lịch sử đọc truyện</a></div>
+                            <div class="cursor-pointer"><a href="">Danh sách theo dõi</a></div>
+                        </div>
+                            <!-- Menu phụ end-->
+
+                            <!-- Vip status -->
+                        <div class="vip-tag border-box w-100">
+                            <div class="vip-lv">
+                                <img class="img-b" src="./assets/image/0.png" alt=""></div>
+                            <div>
+                                <div class="text-bold">Tích lũy nạp vàng</div>
+                                <div class="vip-exp status-bar-form">0/500</div>
+                            </div>
+                        </div>
+                            <!-- Vip status end -->
+
+                            <!-- Chest status -->
+                        <div class="border-box cm-12 w-100 " id="crital-open-equipment">
+                            <div>
+                                <div>
+                                    <img class="img-b" src="./assets/image/random_equipment_6.png" alt="">
+                                </div>
+                                <div>
+                                    <div class="lv1-g text-bold">Rương TB [S]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                            <div>
+                                <div>
+                                    <img class="img-b" src="./assets/image/random_equipment_accessory_6.png" alt="">
+                                </div>
+                                <div>
+                                    <div class="lv1-g text-bold">Rương PK [S]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                            <div>
+                                <div>
+                                    <img class="img-b" src="./assets/image/random_equipment_7.png" alt="">
+                                </div>
+                                <div>
+                                    <div class="lv11-ttl text-bold" >Rương TB [S+]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                            <div>
+                                <div>
+                                    <img class="img-b" src="./assets/image/random_equipment_accessory_7.png" alt="">
+                                </div>
+                                <div>
+                                    <div class="lv11-ttl text-bold" >Rương PK [S+]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                            <div>
+                               <div>    
+                                    <img class="img-b" src="./assets/image/random_equipment_8.png" alt="">
+                               </div>
+                                <div>
+                                    <div class="lv11-ttl text-bold" >Rương TB [SS]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                            <div>
+                                <div>
+                                    <img class="img-b" src="./assets/image/random_equipment_accessory_8.png" alt="">
+                                </div>
+                                <div>
+                                    <div class="lv11-ttl text-bold" >Rương PK [SS]</div>
+                                    <div class="status-bar-form" >0</div>
+                                </div>
+                            </div>
+                            <hr noshade="noshade" size="0.5px" color="#e0e0e0" width="204px">
+                        </div>
+                            <!-- Chest status -->
+
+                            <!-- Sư đồ -->
+                        <div class="student-tag border-box cursor-pointer w-100">
+                            <div>
+                                <img class="img-b" src="./assets/image/student.png" alt="">
+                            </div>
+                            <div>
+                                <span class="quantity text-bold">1</span>
+                                <span>đệ tử</span>
+                            </div>
+                        </div>
+                            <!-- Sư đồ end -->
+                    </div> 
+                    <!-- Profile end -->
+
+                    <!-- Main content -->
+                    <div class="menu-container col c-9 cm-12 ">
+                        <!-- Top -->
+                    
+                            <div class="row">
+                                <h4>Tu Luyện</h4> 
+                                <div class="top-content-right row">
+                                    <div class="cursor-pointer" id="set-equipment" >Bộ trang bị [S]</div> 
+                                    <div class="cursor-pointer" id="attendance">Điểm Danh</div>
+                                </div>
+                            </div>
+                            <div class="mgt-1 mgb-1 status-bar">
+                                <div class="lv10-sss text-bold my-rank">SSS-rank</div>
+                                <div class="exp-bar-frame l-6">
+                                    <div class="exp-bar">1.280.000/2.560.00</div> <!--Chưa fix chiều rộng-->
+                                </div>
+                                <div class="lv11-ttl text-bold next-rank">Truyền Thuyết</div>
+                            </div>
+                            <h3 class="guide lv4-d text-center cursor-pointer"><i class="fa-solid fa-book"></i><a href="#">Hướng dẫn tu luyện trên cmanga</a></h3>           
+                        <!-- Top end-->
+                        <!-- Chức năng -->
+                        <div class="row" id="function" > 
+                        <h3 class="c-12 text-center mgt-1 mgb-1 text-capitalize">Chức năng</h3>
+                            <!---->
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="nhan-vat.html">
+                                <div >
+                                    <img class="img-c" src="./assets/image/nhan_vat.png" alt="">
+                                    <div class="mg-item">
+                                    Chỉ số
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/bag.png" alt="">
+                                    <div class="mg-item">
+                                    túi đồ 
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/nhiem_vu.png" alt="">
+                                    <div class="mg-item">
+                                        nhiệm vụ
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/party.jpg" alt="">
+                                    <div class="mg-item">
+                                        tổ đội 
+                                    </div>
+                                </div>
+                            </a>
+                
+                        <!--  -->
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/canh_gioi.png" alt="">
+                                    <div class="mg-item">
+                                        bang hội 
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/shop.png" alt="">
+                                    <div class="mg-item">
+                                        cửa hàng 
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/market.png" alt="">
+                                    <div class="mg-item">
+                                        chợ
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                <div >
+                                    <img class="img-c" src="./assets/image/tiem_ren.png" alt="">
+                                    <div class="mg-item">
+                                        tiềm rèn 
+                                    </div>
+                                </div>
+                            </a>
+
+                        <!--  -->
+
+                        <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                            <div >
+                                <img class="img-c" src="./assets/image/item_chest.png" alt="">
+                                <div class="mg-item">
+                                    quay trang bị 
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                            <div >
+                                <img class="img-c" src="./assets/image/coin.png" alt=""> 
+                                <div class="mg-item">
+                                    nạp vàng
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                            <div >
+                                <img class="img-c" src="./assets/image/summon.png" alt="">
+                                <div class="mg-item">
+                                    triệu hồi 
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                            <div >
+                                <img class="img-c" src="./assets/image/mini_game.png" alt="">
+                                <div class="mg-item">
+                                    mini game
+                                </div>
+                            </div>
+                        </a>  
+
+                        <!--  -->
+
+                        <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                            <div >
+                                <img class="img-c" src="./assets/image/fund.png" alt="">
+                                <div class="mg-item">
+                                    Quỹ 
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" id="lastItem"  class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n">
+                            <div >
+                                <img class="img-c" src="./assets/image/treasure.png" alt="">
+                                <div class="mg-item">
+                                    Kho báu 
+                                </div>
+                            </div>
+                        </a> 
+
+                        </div>
+                        <!-- Chức năng end -->
+
+                        <!-- Hoạt động -->
+                        <div class="row"  id="active" >
+                        <h3 class="c-12 text-center mgt-1 mgb-1 text-capitalize" >hoạt động</h3>
+                            <!--  -->
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/dungeon.png" alt="">
+                                        <div class="mg-item">
+                                            hầm ngục 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/ngoai_vuc.png" alt="">
+                                        <div class="mg-item">
+                                            ngoại vực 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/dau_truong.png" alt="">
+                                        <div class="mg-item">
+                                            đấu trường 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/boss.png" alt="">
+                                        <div class="mg-item">
+                                            đánh boss 
+                                        </div>
+                                    </div>
+                                </a>
+
+                            <!--  -->
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/battle.png" alt="">
+                                        <div class="mg-item">
+                                            chiến trường 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/titan.png" alt="">
+                                        <div class="mg-item">
+                                            mê cung titan 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/black_zone.png" alt="">
+                                        <div class="mg-item">
+                                            black zone 
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/devil_tower.png" alt="">
+                                        <div class="mg-item">
+                                            tháp quỷ 
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <!--  -->
+
+                                <a class="col l-2-4 mb-6 lr-3 text-capitalize cursor-pointer item-n" href="#">
+                                    <div >
+                                        <img class="img-c" src="./assets/image/king.png" alt="">
+                                        <div class="mg-item">
+                                            hoàng đế chiến 
+                                        </div>
+                                    </div>
+                                </a>
+                            
+                        </div>
+                        <!-- Hoạt động end-->
+                    </div>  
+                    <!-- Main content end-->
+
+                </div>
+            </div>
+        </div>
+    <script src="./assets/Js/main.js">
+        
+    </script>
+    </body>
+</html>

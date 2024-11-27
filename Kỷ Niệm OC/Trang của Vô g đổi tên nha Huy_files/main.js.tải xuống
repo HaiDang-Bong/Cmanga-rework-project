@@ -1,0 +1,237 @@
+function time_format(time_send,revert='no',time_stamp='no'){if(time_stamp=='no'){var my_date=time_send;my_date=my_date.replace(/-/g,"/");var d=new Date(my_date);var d_time=Math.floor(d.getTime()/1000);}else{var d_time=time_send;}
+if(revert=='no'){var time=server_time-d_time;var time_text='trước';}else{var time=d_time-server_time;var time_text='nữa';}
+if(time<=60){string="vài giây "+time_text;}else if(time>60&&time<=(60*60)){time_distance=Math.floor(time/60);string=time_distance+" phút "+time_text;}else if(time>(60*60)&&time<=(60*60*24)){time_distance=Math.floor(time/60/60);string=time_distance+" giờ "+time_text;}else if(time>(60*60*24)){time_distance=Math.floor(time/60/60/24);string=time_distance+" ngày "+time_text;}else{string='chưa cập nhật';}
+return(string);}
+function time_count_down(time_end){var my_date=time_end;my_date=my_date.replace(/-/g,"/");var d=new Date(my_date);var d_time=Math.floor(d.getTime()/1000);var hour_text='';if(d_time>server_time){time=d_time-server_time;day=Math.floor(time/60/60/24);hour=Math.floor((time-(day*24*60*60))/60/60);min=Math.floor((time-(day*24*60*60)-(hour*60*60))/60);sec=Math.floor((time-(day*24*60*60)-(hour*60*60)-(min*60)));if(day>=1){hour=hour+(day*24);}
+if(hour<10){var hour_text="0"+hour;}else{var hour_text=hour;}
+if(hour<=0){var hour_text="";}else{var hour_text=hour_text+":";}
+if(min<10){min="0"+min;}
+if(sec<10){sec="0"+sec;}
+string=hour_text+min+":"+sec;}else{string="00:00";}
+return string;}
+function number_convert(num){if(num>=1000000){num=Math.round((num/1000000)*10)/10;sign="M";}else if(num>=1000){num=Math.round((num/1000)*10)/10;sign="K";}else{sign="";}
+return num+sign;}
+function re_price(string){string=string.replace(/,/g,'')
+return parseInt(string,10);}
+function load_comment(target_id,target_type='book',target_page=1,target_limit=10,target_manage='no'){$.get("api/comment?target_id="+target_id+"&target_type="+target_type+"&target_page="+target_page+"&target_limit="+target_limit,{}).done(function(data){get_data="";$.each(data,function(index,item){if(item.text){var time_to_date=time_format(item.date);var text=urlify(item.text);var avatar=item.avatar+'.jpg';if(item.reply!=0){var reply=`<a onclick="load_reply(${item.id_comment});$(this).hide();"> · Xem ${item.reply} câu trả lời</a>`;}else{var reply="";}
+if(item.id_chapter!=0){var chapter=` > <a>Chapter ${item.chapter}</a>`;}else{var chapter="";}
+if(item.id_user==token_user){var comment_delete=`<a onclick="comment_delete(${item.id_comment});$(this).parent().parent().parent().hide();">Xóa · </a>`;}else if(target_manage==token_user){var comment_delete=`<a onclick="comment_delete(${item.id_comment});$(this).parent().parent().parent().hide();">Xóa · </a>`;}else{var comment_delete=``;}
+if(token_permission<=1){var comment_delete=comment_delete+`<a onclick="comment_delete_all(${item.id_comment});$(this).parent().parent().parent().hide();">Xóa hết · </a>`;}
+var cv_li=`
+                        <li id="comment_${item.id_comment}" class="parent_li">
+                            <img onerror="$(this).attr('src','/assets/img/error_avatar.jpg')" class="avatar" src="/assets/tmp/avatar/${avatar}"/>
+                            <div class="detail">
+                                <p><a onclick="member_info(${item.id_user})" class="name level_${item.id_level}">${item.name}</a>${chapter}</p>
+                                <p class="text">${text}</p>
+                                <p class="comment_menu">${comment_delete}<a onclick="$(this).parent().parent().parent().children('.comment_reply').show();">Trả lời</a>${reply} · <span class="time">${time_to_date}</span></p>
+                            </div>
+                            <div class="clear"></div>
+                            <div style="display: none;" class="comment_list_hidden">
+                                <ul class="comment_list_child">
+                                </ul>
+                            </div>
+                            <div class="comment_reply">
+                                <input class="comment_text_value" placeholder="Lời nhắn..." />
+                                <i book='0' url='0' chapter_num='0' chapter_id='0' comment_id='${item.id_comment}' onclick="book_comment(this)" class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    `;get_data=get_data+cv_li;}});if(target_type=='book'||target_type=='chapter'){var id_replace=target_id.replace(/=/g,"");var total_item=data.total;var page=parseInt(target_page);var text_page="";var limit=target_limit;if(total_item>limit){var num_page=Math.ceil(total_item/limit);if(page>=num_page){page=page;}
+if(page<=3){if(num_page>5){z=5;}else{z=num_page;}
+a=1;}else{if((num_page-page)>=2){a=page-2;z=page+2;}else if((num_page-page)<2&&num_page<=5){a=(num_page-num_page)+1;z=num_page;}else{a=num_page-5;z=num_page;}}
+for(i=a;i<=z;i++){if(i==page){text_page=text_page+`<p class="active">${i}</p>`;}else{text_page=text_page+`<p onclick="load_comment('${target_id}','${target_type}','${i}',10,'${target_manage}')">${i}</p>`;}}}
+if(target_type=='book'){$('.page_redirect').html(text_page);$('.num_comment').text(number_format(total_item));}else{if(total_item==0){$('.load_comment_p').hide();}
+$('#chapter_content_div_'+id_replace+' .num_comment').text(number_format(total_item));$('#comment_chapter_'+id_replace).html(text_page);}}
+if(target_type=='chapter'){$('#book_comment_'+id_replace+' .comment_list').html(get_data);if(get_data==''){$('#book_comment_'+id_replace+' p a.link').remove();}}else{$('.comment_list').html(get_data);}});}
+function load_reply(target_id,target_type='comment',target_page=1,target_limit=99999){$.get("api/comment?target_id="+target_id+"&target_type="+target_type+"&target_page="+target_page+"&target_limit="+target_limit,{}).done(function(data){get_data="";$.each(data,function(index,item){if(item.text){var time_to_date=time_format(item.date);var text=urlify(item.text);var avatar=item.avatar+'.jpg';if(item.id_user==token_user){var comment_delete=`<a onclick="comment_delete(${item.id_comment});$(this).parent().parent().parent().hide();">Xóa · </a>`;}else{var comment_delete="";}
+var cv_li=`
+                    <li>
+                        <img onerror="$(this).attr('src','/assets/img/error_avatar.jpg')" class="avatar" src="/assets/tmp/avatar/${avatar}"/>
+                        <div class="detail">
+                            <p><span class="name level_${item.id_level}">${item.name}</span></p>
+                            <p class="text">${text}</p>
+                            <p class="comment_menu">${comment_delete}<span class="time">${time_to_date}</span></p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    `;get_data=cv_li+get_data;}});$('#comment_'+target_id+' .comment_list_child').html(get_data);$('#comment_'+target_id+' .comment_list_hidden').show();});}
+function load_report(book,chapter=0){$.post("assets/ajax/popup.php",{action:'report_error',book:book,chapter:chapter}).done(function(data){$('#popup_content').html('');$('#popup_content').append(data);$('.popup').show();});}
+function comment_delete(id){$.post("../assets/ajax/user.php",{action:"comment_delete",id:id}).done(function(data){$('#result').empty().append(data);alertify.success('Xóa bình luận thành công');});}
+function comment_delete_all(id){$.post("../assets/ajax/user.php",{action:"comment_delete_all",id:id}).done(function(data){$('#result').empty().append(data);alertify.success('Xóa bình luận thành công');});}
+function book_comment(e){book=$(e).attr("book");url=$(e).attr("url");chapter_num=$(e).attr("chapter_num");chapter_id=$(e).attr("chapter_id");comment_id=$(e).attr("comment_id");text=$(e).parent().children('.comment_text_value').val();if($.trim(text)!=""&&token_user!=0){$(e).parent().children('.comment_text_value').val('');$.post("../assets/ajax/user.php",{action:"comment",book:book,url:url,chapter_num:chapter_num,chapter_id,chapter_id,comment_id:comment_id,text:text}).done(function(data){$('#result').empty().append(data);if(comment_id!=0){load_reply(comment_id);}else if(chapter_id!=0){load_comment(chapter_id,'chapter');}else if(book!=0){load_comment(book_id,'book');}});}else if(token_user==0){alert('Bạn cần đăng nhập');}}
+function load_part(target,part){$.post("../assets/inc/part/"+part+".php",{}).done(function(data){$('#'+target).empty().append(data);});}
+function setCookie(name,value,hours=8760){var expires="";if(hours){var date=new Date();date.setTime(date.getTime()+(hours*60*60*1000));expires="; expires="+date.toUTCString();}
+document.cookie=name+"="+(value||"")+expires+"; path=/";}
+function getCookie(name){var nameEQ=name+"=";var ca=document.cookie.split(';');for(var i=0;i<ca.length;i++){var c=ca[i];while(c.charAt(0)==' ')c=c.substring(1,c.length);if(c.indexOf(nameEQ)==0)return c.substring(nameEQ.length,c.length);}
+return null;}
+function deleteCookie(name){document.cookie=name+'=; Max-Age=-99999999;';}
+function load_equipment(id){$.get("/api/load_character?id="+id,{}).done(function(data){$('#load_equipment_weapon').html(load_equipment_data(data,'weapon'));$('#load_equipment_armor').html(load_equipment_data(data,'armor'));$('#load_equipment_helmet').html(load_equipment_data(data,'helmet'));$('#load_equipment_boots').html(load_equipment_data(data,'boots'));$('#load_equipment_gloves').html(load_equipment_data(data,'gloves'));$('#load_equipment_guardian').html(load_equipment_data(data,'guardian'));$('#load_equipment_devil_fruit').html(load_equipment_data(data,'devil_fruit'));$('#equipment_stats').html(load_stats(data));if(data.frame){if(data.frame.current!='no'){$('#load_frame').html(`<img class="background_avatar" src="assets/img/level/frame/${data.frame.current}.gif"/>`);}else{$('#load_frame img').remove();}}});}
+function load_equipment_data(data,type='weapon',tooltip='yes',view_item=0){if(view_item!=0){var view_item_html=`item_view(${view_item.id},'${view_item.code}','${view_item.target}')`;}else{var view_item_html='';}
+gem_name={'gem_damage':'sát thương','gem_critical':'chí mạng','gem_speed':'tốc độ','gem_hp':'máu','gem_armor':'giáp','gem_resistance':'kháng phép'};if(type=='weapon'){if(data.equipment&&data.equipment.weapon){if(tooltip=='yes'){if(data.equipment.weapon.type=="physical"){var type="Vật lý";}else{var type="Phép thuật";}
+if(data.equipment.weapon.star){var main_damage=Math.round((data.equipment.weapon.stats.damage.star+data.equipment.weapon.stats.damage.main)*10)/10;var main_critical=Math.round((data.equipment.weapon.stats.critical.star+data.equipment.weapon.stats.critical.main)*10)/10;var main_speed=Math.round((data.equipment.weapon.stats.speed.star+data.equipment.weapon.stats.speed.main)*10)/10;}else{var main_damage=data.equipment.weapon.stats.damage.main;var main_critical=data.equipment.weapon.stats.critical.main;var main_speed=data.equipment.weapon.stats.speed.main;}
+var total_damage=Math.round((main_damage+data.equipment.weapon.stats.damage.skill+data.equipment.weapon.stats.damage.enhance)*10)/10;var total_critical=Math.round((main_critical+data.equipment.weapon.stats.critical.skill+data.equipment.weapon.stats.critical.enhance)*10)/10;var total_speed=Math.round((main_speed+data.equipment.weapon.stats.speed.skill+data.equipment.weapon.stats.speed.enhance)*10)/10;if(data.equipment.weapon.skill.sign!='none'){var skill=`<span title='${data.equipment.weapon.skill.title}' class='rank_text_${data.equipment.weapon.skill.rank.level}'>[${data.equipment.weapon.skill.rank.name}-Rank] ${data.equipment.weapon.skill.name}</span>`}else{var skill='Không có';}
+if(data.equipment.weapon.star){var star_html='';for(i=0;i<data.equipment.weapon.star;i++){star_html=star_html+'<i class="fas fa-star"></i>';}}else{var star_html='';}
+var option_html='';if(data.equipment.weapon.option){$.each(data.equipment.weapon.option,function(index2,value2){option_html=option_html+`<span class="damage_option text_option">${value2.text}</span><br/>`;});}
+if(data.equipment.weapon.option_main){$.each(data.equipment.weapon.option_main,function(index2,value2){option_html=option_html+`<span style="color:black !important;" class="damage_option text_option">(Thuộc tính) ${value2.text}</span><br/>`;});}
+if(data.equipment.weapon.gem){var gem_html='';$.each(data.equipment.weapon.gem,function(index2,value2){if(value2.gem.sign){var gem_level=value2.gem.sign.replace(/\D/g,'');gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá cấp ${gem_level}) ${value2.gem.note}</span><br/>`;}else{gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá) Chưa khảm đá ${gem_name[value2.target]}</span><br/>`;}});}else{var gem_html='';}
+if(data.equipment.weapon.set){var set_html=`<span class="set_option">${data.equipment.weapon.set.name}</span><br/>`;$.each(data.equipment.weapon.set.data,function(index2,value2){set_html=set_html+`<span class="set_option text_set">(${value2.need}/5) ${value2.data.name}</span><br/>`;});}else{var set_html='';}
+var tooltip_html=`
+                    <div class="item_tool_tip">
+                        <table>
+                            <tbody>
+                            <tr><td colspan=2 class="rank_text_${data.equipment.weapon.rank.level}">[${data.equipment.weapon.rank.name}-Rank] ${data.equipment.weapon.name} ${star_html}</td></tr>
+                            <tr><td colspan='2'>${option_html}</td></tr>
+                            <tr><td colspan='2'>${gem_html}</td></tr>
+                            <tr><td colspan='2'>${set_html}</td></tr>
+                            <tr><td>Cường hóa</td><td class="rank_text_2">${data.equipment.weapon.enhance}</td></tr>
+                            <tr><td>Tấn công</td><td>${main_damage} + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.weapon.stats.damage.skill}</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.weapon.stats.damage.enhance}</span> (${total_damage})</td></tr>
+                            <tr><td>Chí mạng</td><td>${main_critical}% + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.weapon.stats.critical.skill}%</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.weapon.stats.critical.enhance}%</span> (${total_critical}%)</td></tr>
+                            <tr><td>Tốc độ</td><td>${main_speed} + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.weapon.stats.speed.skill}</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.weapon.stats.speed.enhance}</span> (${total_speed})</td></tr>
+                            <tr><td>Kỹ năng</td><td>${skill}</td></tr>
+                        </tbody></table>
+                    </div>
+                `;}else{var tooltip_html='';}
+if(data.equipment.weapon.avatar){var avatar=data.equipment.weapon.avatar;}else{var avatar=data.equipment.weapon.sign+'_'+data.equipment.weapon.rank.level;}
+var get_html=`
+                <div onclick="${view_item_html}" class="item rank_border_${data.equipment.weapon.rank.level} item_load_weapon">
+                    <img src="assets/img/level/icon/equipment/${avatar}.png" />
+                    <div class="enhance">+${data.equipment.weapon.enhance}</div>
+                    <img class="elemental" src="assets/img/level/icon/elemental/${data.war.attack.main}.png" />
+                    ${tooltip_html}
+                </div>
+            `}else{var get_html=`<div class="item rank_border_1 item_load_weapon"><img src="assets/img/level/icon/equipment/weapon.png" /><img class="elemental" src="assets/img/level/icon/elemental/${data.war.attack.main}.png" /></div>`;}}else if(type=='armor'){if(data.equipment&&data.equipment.armor){if(tooltip=='yes'){if(data.equipment.armor.star){var main_hp=Math.round((data.equipment.armor.stats.hp.star+data.equipment.armor.stats.hp.main)*10)/10;var main_armor=Math.round((data.equipment.armor.stats.armor.star+data.equipment.armor.stats.armor.main)*10)/10;var main_resistance=Math.round((data.equipment.armor.stats.resistance.star+data.equipment.armor.stats.resistance.main)*10)/10;}else{var main_hp=data.equipment.armor.stats.hp.main;var main_armor=data.equipment.armor.stats.armor.main;var main_resistance=data.equipment.armor.stats.resistance.main;}
+var total_hp=Math.round((main_hp+data.equipment.armor.stats.hp.skill+data.equipment.armor.stats.hp.enhance)*10)/10;var total_armor=Math.round((main_armor+data.equipment.armor.stats.armor.skill+data.equipment.armor.stats.armor.enhance)*10)/10;var total_resistance=Math.round((main_resistance+data.equipment.armor.stats.resistance.skill+data.equipment.armor.stats.resistance.enhance)*10)/10;if(data.equipment.armor.skill.sign!='none'){var skill=`<span title='${data.equipment.armor.skill.title}' class='rank_text_${data.equipment.armor.skill.rank.level}'>[${data.equipment.armor.skill.rank.name}-Rank] ${data.equipment.armor.skill.name}</span>`}else{var skill='Không có';}
+if(data.equipment.armor.star){var star_html='';for(i=0;i<data.equipment.armor.star;i++){star_html=star_html+'<i class="fas fa-star"></i>';}}else{var star_html='';}
+var option_html='';if(data.equipment.armor.option){$.each(data.equipment.armor.option,function(index2,value2){option_html=option_html+`<span class="damage_option text_option">${value2.text}</span><br/>`;});}
+if(data.equipment.armor.option_main){$.each(data.equipment.armor.option_main,function(index2,value2){option_html=option_html+`<span style="color:black !important;" class="damage_option text_option">(Thuộc tính) ${value2.text}</span><br/>`;});}
+if(data.equipment.armor.gem){var gem_html='';$.each(data.equipment.armor.gem,function(index2,value2){if(value2.gem.sign){var gem_level=value2.gem.sign.replace(/\D/g,'');gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá cấp ${gem_level}) ${value2.gem.note}</span><br/>`;}else{gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá) Chưa khảm đá ${gem_name[value2.target]}</span><br/>`;}});}else{var gem_html='';}
+if(data.equipment.armor.set){var set_html=`<span class="set_option">${data.equipment.armor.set.name}</span><br/>`;$.each(data.equipment.armor.set.data,function(index2,value2){set_html=set_html+`<span class="set_option text_set">(${value2.need}/5) ${value2.data.name}</span><br/>`;});}else{var set_html='';}
+var tooltip_html=`
+                    <div class="item_tool_tip">
+                        <table>
+                            <tbody>
+                            <tr><td colspan=2 class="rank_text_${data.equipment.armor.rank.level}">[${data.equipment.armor.rank.name}-Rank] ${data.equipment.armor.name} ${star_html}</td></tr>
+                            <tr><td colspan='2'>${option_html}</td></tr>
+                            <tr><td colspan='2'>${gem_html}</td></tr>
+                            <tr><td colspan='2'>${set_html}</td></tr>
+                            <tr><td>Cường hóa</td><td class="rank_text_2">${data.equipment.armor.enhance}</td></tr>
+                            <tr><td>HP</td><td>${main_hp} + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.armor.stats.hp.skill}</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.armor.stats.hp.enhance}</span> (${total_hp})</td></tr>
+                            <tr><td>Giáp</td><td>${main_armor} + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.armor.stats.armor.skill}</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.armor.stats.armor.enhance}</span> (${total_armor})</td></tr>
+                            <tr><td>Kháng phép</td><td>${main_resistance} + <span title='Cộng từ Skill' class="damage_skill">${data.equipment.armor.stats.resistance.skill}</span> + <span title='Cộng từ Cường Hóa' class="damage_enhance">${data.equipment.armor.stats.resistance.enhance}</span> (${total_resistance})</td></tr>
+                            <tr><td>Kỹ năng</td><td>${skill}</td></tr>
+                        </tbody></table>
+                    </div>
+                `;}else{var tooltip_html='';}
+if(data.equipment.armor.avatar){var avatar=data.equipment.armor.avatar;}else{var avatar=data.equipment.armor.sign+'_'+data.equipment.armor.rank.level;}
+var get_html=`
+                <div onclick="${view_item_html}" class="item rank_border_${data.equipment.armor.rank.level} item_load_armor">
+                    <img src="assets/img/level/icon/equipment/${avatar}.png" />
+                    <div class="enhance">+${data.equipment.armor.enhance}</div>
+                    <img class="elemental" src="assets/img/level/icon/elemental/${data.war.defend.main}.png" />
+                    ${tooltip_html}
+                </div>
+            `}else{var get_html=`<div class="item rank_border_1 item_load_armor"><img src="assets/img/level/icon/equipment/armor.png" /><img class="elemental" src="assets/img/level/icon/elemental/${data.war.defend.main}.png" /></div>`;}}else if(type=='helmet'){if(data.equipment&&data.equipment.helmet){if(tooltip=='yes'){var main_hp=data.equipment.helmet.stats.hp.main;var option_html='';if(data.equipment.helmet.option){$.each(data.equipment.helmet.option,function(index2,value2){option_html=option_html+`<span class="damage_option text_option">${value2.text}</span><br/>`;});}
+if(data.equipment.helmet.option_main){$.each(data.equipment.helmet.option_main,function(index2,value2){option_html=option_html+`<span style="color:black !important;" class="damage_option text_option">(Thuộc tính) ${value2.text}</span><br/>`;});}
+var text=`<td>Máu</td><td>${main_hp}</td>`;if(data.equipment.helmet.gem){var gem_html='';$.each(data.equipment.helmet.gem,function(index2,value2){if(value2.gem.sign){var gem_level=value2.gem.sign.replace(/\D/g,'');gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá cấp ${gem_level}) ${value2.gem.note}</span><br/>`;}else{gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá) Chưa khảm đá ${gem_name[value2.target]}</span><br/>`;}});}else{var gem_html='';}
+if(data.equipment.helmet.set){var set_html=`<span class="set_option">${data.equipment.helmet.set.name}</span><br/>`;$.each(data.equipment.helmet.set.data,function(index2,value2){set_html=set_html+`<span class="set_option text_set">(${value2.need}/5) ${value2.data.name}</span><br/>`;});}else{var set_html='';}
+var tooltip_html=`
+                    <div class="item_tool_tip">
+                        <table>
+                            <tbody>
+                            <tr><td colspan=2 class="rank_text_${data.equipment.helmet.rank.level}">[${data.equipment.helmet.rank.name}-Rank] ${data.equipment.helmet.name}</td></tr>
+                            <tr><td colspan='2'>${option_html}</td></tr>
+                            <tr><td colspan='2'>${gem_html}</td></tr>
+                            <tr><td colspan='2'>${set_html}</td></tr>
+                            <tr>${text}</tr>
+                        </tbody></table>
+                    </div>
+                `;}else{var tooltip_html='';}
+if(data.equipment.helmet.avatar){var avatar=data.equipment.helmet.avatar;}else{var avatar=data.equipment.helmet.sign+'_'+data.equipment.helmet.rank.level;}
+var get_html=`
+                <div onclick="${view_item_html}" class="item rank_border_${data.equipment.helmet.rank.level} item_load_helmet">
+                    <img src="assets/img/level/icon/equipment/${avatar}.png" />
+                    <img class="elemental" src="assets/img/level/icon/elemental/${data.equipment.helmet.elemental.main}.png" />
+                    ${tooltip_html}
+                </div>
+            `}else{var get_html=`<div class="item rank_border_1 item_load_helmet"><img src="assets/img/level/icon/equipment/helmet.png" /></div>`;}}else if(type=='boots'){if(data.equipment&&data.equipment.boots){if(tooltip=='yes'){var main_hp=data.equipment.boots.stats.hp.main;var main_armor=data.equipment.boots.stats.armor.main;var main_resistance=data.equipment.boots.stats.resistance.main;var option_html='';if(data.equipment.boots.option){$.each(data.equipment.boots.option,function(index2,value2){option_html=option_html+`<span class="damage_option text_option">${value2.text}</span><br/>`;});}
+if(data.equipment.boots.option_main){$.each(data.equipment.boots.option_main,function(index2,value2){option_html=option_html+`<span style="color:black !important;" class="damage_option text_option">(Thuộc tính) ${value2.text}</span><br/>`;});}
+if(main_hp!=0){var text=`<td>Máu</td><td>${main_hp}</td>`;}else if(main_armor!=0){var text=`<td>Giáp</td><td>${main_armor}</td>`;}else if(main_resistance!=0){var text=`<td>Kháng phép</td><td>${main_resistance}</td>`;}
+if(data.equipment.boots.gem){var gem_html='';$.each(data.equipment.boots.gem,function(index2,value2){if(value2.gem.sign){var gem_level=value2.gem.sign.replace(/\D/g,'');gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá cấp ${gem_level}) ${value2.gem.note}</span><br/>`;}else{gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá) Chưa khảm đá ${gem_name[value2.target]}</span><br/>`;}});}else{var gem_html='';}
+if(data.equipment.boots.set){var set_html=`<span class="set_option">${data.equipment.boots.set.name}</span><br/>`;$.each(data.equipment.boots.set.data,function(index2,value2){set_html=set_html+`<span class="set_option text_set">(${value2.need}/5) ${value2.data.name}</span><br/>`;});}else{var set_html='';}
+var tooltip_html=`
+                    <div class="item_tool_tip">
+                        <table>
+                            <tbody>
+                            <tr><td colspan=2 class="rank_text_${data.equipment.boots.rank.level}">[${data.equipment.boots.rank.name}-Rank] ${data.equipment.boots.name}</td></tr>
+                            <tr><td colspan='2'>${option_html}</td></tr>
+                            <tr><td colspan='2'>${gem_html}</td></tr>
+                            <tr><td colspan='2'>${set_html}</td></tr>
+                            <tr>${text}</tr>
+                        </tbody></table>
+                    </div>
+                `;}else{var tooltip_html='';}
+if(data.equipment.boots.avatar){var avatar=data.equipment.boots.avatar;}else{var avatar=data.equipment.boots.sign+'_'+data.equipment.boots.rank.level;}
+var get_html=`
+                <div onclick="${view_item_html}" class="item rank_border_${data.equipment.boots.rank.level} item_load_boots">
+                    <img src="assets/img/level/icon/equipment/${avatar}.png" />
+                    <img class="elemental" src="assets/img/level/icon/elemental/${data.equipment.boots.elemental.main}.png" />
+                    ${tooltip_html}
+                </div>
+            `}else{var get_html=`<div class="item rank_border_1 item_load_boots"><img src="assets/img/level/icon/equipment/boots.png" /></div>`;}}else if(type=='gloves'){if(data.equipment&&data.equipment.gloves){if(tooltip=='yes'){var main_damage=data.equipment.gloves.stats.damage.main;var main_critical=data.equipment.gloves.stats.critical.main;var main_speed=data.equipment.gloves.stats.speed.main;if(main_damage!=0){var text=`<td>Tấn công</td><td>${main_damage}</td>`;}else if(main_critical!=0){var text=`<td>Chí mạng</td><td>${main_critical}</td>`;}else if(main_speed!=0){var text=`<td>Tốc độ</td><td>${main_speed}</td>`;}
+var option_html='';if(data.equipment.gloves.option){$.each(data.equipment.gloves.option,function(index2,value2){option_html=option_html+`<span class="damage_option text_option">${value2.text}</span><br/>`;});}
+if(data.equipment.gloves.option_main){$.each(data.equipment.gloves.option_main,function(index2,value2){option_html=option_html+`<span style="color:black !important;" class="damage_option text_option">(Thuộc tính) ${value2.text}</span><br/>`;});}
+if(data.equipment.gloves.set){var set_html=`<span class="set_option">${data.equipment.gloves.set.name}</span><br/>`;$.each(data.equipment.gloves.set.data,function(index2,value2){set_html=set_html+`<span class="set_option text_set">(${value2.need}/5) ${value2.data.name}</span><br/>`;});}else{var set_html='';}
+if(data.equipment.gloves.gem){var gem_html='';$.each(data.equipment.gloves.gem,function(index2,value2){if(value2.gem.sign){var gem_level=value2.gem.sign.replace(/\D/g,'');gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá cấp ${gem_level}) ${value2.gem.note}</span><br/>`;}else{gem_html=gem_html+`<span class="gem_socket ${value2.target}_text">(Đá) Chưa khảm đá ${gem_name[value2.target]}</span><br/>`;}});}else{var gem_html='';}
+var tooltip_html=`
+                    <div class="item_tool_tip">
+                        <table>
+                            <tbody>
+                            <tr><td colspan=2 class="rank_text_${data.equipment.gloves.rank.level}">[${data.equipment.gloves.rank.name}-Rank] ${data.equipment.gloves.name}</td></tr>
+                            <tr><td colspan='2'>${option_html}</td></tr>
+                            <tr><td colspan='2'>${gem_html}</td></tr>
+                            <tr><td colspan='2'>${set_html}</td></tr>
+                            <tr>${text}</tr>
+                        </tbody></table>
+                    </div>
+                `;}else{var tooltip_html='';}
+if(data.equipment.gloves.avatar){var avatar=data.equipment.gloves.avatar;}else{var avatar=data.equipment.gloves.sign+'_'+data.equipment.gloves.rank.level;}
+var get_html=`
+                <div onclick="${view_item_html}" class="item rank_border_${data.equipment.gloves.rank.level} item_load_gloves">
+                    <img src="assets/img/level/icon/equipment/${avatar}.png" />
+                    <img class="elemental" src="assets/img/level/icon/elemental/${data.equipment.gloves.elemental.main}.png" />
+                    ${tooltip_html}
+                </div>
+            `}else{var get_html=`<div class="item rank_border_1 item_load_gloves"><img src="assets/img/level/icon/equipment/gloves.png" /></div>`;}}else if(type=='guardian'){if(data.info.guardian){var get_html=`
+                <div title="Triệu hồi" class="guardian">
+                    <img src="assets/img/level/icon/guardian/${data.info.guardian.avatar}" />
+                </div>
+            `;}else{var get_html=``;}}else if(type=='devil_fruit'){if(data.info.devil_fruit){var get_html=`
+                <div title="Trái Ác Quỷ" class="guardian devil_fruit">
+                    <img src="assets/img/level/devil_fruit/${data.info.devil_fruit.name}.png" />
+                    <p>${data.info.devil_fruit.level}</p>
+                </div>
+            `;}else{var get_html=``;}}
+return get_html;}
+function number_format(num){num=num.toString().replace(/,/g,"").replace(/\B(?=(\d{3})+(?!\d))/g,",");return num;}
+function fight_solo(e){id=$(e).attr('target');$(e).hide();$.post("../assets/ajax/level.php",{action:'fight_solo',id:id}).done(function(data){$('#result').html(data);setTimeout(function(){$(e).show();},2000);});}
+function fight_solo_random(e){$(e).hide();$.post("../assets/ajax/level.php",{action:'fight_solo_random'}).done(function(data){$('#result').html(data);setTimeout(function(){$(e).show();},2000);});}
+function fight_party(e){id=$(e).attr('target');$(e).hide();$.post("../assets/ajax/level.php",{action:'fight_party',id:id}).done(function(data){$('#result').html(data);setTimeout(function(){$(e).show();},2000);});}
+function fight_party_random(e){id=$(e).attr('target');$(e).hide();$.post("../assets/ajax/level.php",{action:'fight_party_random',id:id}).done(function(data){$('#result').html(data);setTimeout(function(){$(e).show();},2000);});}
+function chapter_unlock(e){id=$(e).attr('target');if(token_user!=0){$(e).hide();$.post("../assets/ajax/level.php",{action:'chapter_unlock',id:id}).done(function(data){$('#result').html(data);$(e).show();});}else{alertify.error('Bạn cần đăng nhập để thực hiện hành động này.');}}
+function load_stats(data){if(data.stats){if(data.war.type=="magical"){var icon_class='fas fa-staff';}else{var icon_class='fas fa-sword';}
+var total_hp=number_format(Math.round(data.stats.hp.total*10)/10);var total_damage=number_format(Math.round(data.stats.damage.total*10)/10);var total_armor=number_format(Math.round(data.stats.armor.total*10)/10);var total_resistance=number_format(Math.round(data.stats.resistance.total*10)/10);var total_critical=number_format(Math.round(data.stats.critical.total*10)/10);var total_speed=number_format(Math.round(data.stats.speed.total*10)/10);var get_html=`
+            <table>
+                <tr><td><i class="fas fa-heart"></i></td><td>${total_hp}</td></tr>
+                <tr><td><i class="${icon_class}"></i></td><td>${total_damage}</td></tr>
+                <tr><td><i title="Giáp" class="fas fa-shield"></i></td><td>${total_armor}%</td></tr>
+                <tr><td><i title="Kháng phép" class="fas fa-shield-cross"></i></td><td>${total_resistance}%</td></tr>
+                <tr><td><i class="fas fa-sparkles"></i></td><td>${total_critical}%</td></tr>
+                <tr><td><i class="fas fa-bow-arrow"></i></td><td>${total_speed}</td></tr>
+            </table>
+        `;}else{var get_html='';}
+return get_html;}
+function encode_utf8(s){return unescape(encodeURIComponent(s));}
+function substr_utf8_bytes(str,startInBytes,lengthInBytes){str=str.replace(/<\/?[^>]+>/gi,'');var resultStr='';var startInChars=0;for(bytePos=0;bytePos<startInBytes;startInChars++){ch=str.charCodeAt(startInChars);bytePos+=(ch<128)?1:encode_utf8(str[startInChars]).length;}
+end=startInChars+lengthInBytes-1;for(n=startInChars;startInChars<=end;n++){ch=str.charCodeAt(n);end-=(ch<128)?1:encode_utf8(str[n]).length;resultStr+=str[n];}
+return resultStr;}
+c_dvs='1';if(window.requestIdleCallback){requestIdleCallback(function(){Fingerprint2.get(function(components){c_dvs=components;c_dvs=$.sha256(c_dvs);})})}else{setTimeout(function(){Fingerprint2.get(function(components){c_dvs=components;c_dvs=$.sha256(c_dvs);})},500)}
